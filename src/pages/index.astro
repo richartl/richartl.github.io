@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '@layouts/Base.astro';
 import PostCard from '@components/PostCard.astro';
+import { withBase } from '@lib/paths';
 
 const posts = (await getCollection('blog'))
   .filter((post) => !post.data.draft)
@@ -84,7 +85,7 @@ const projects = [
             <h2 class="serif text-4xl font-black tracking-tight md:text-5xl">Últimas notas</h2>
           </div>
           <a
-            href="/blog/"
+            href={withBase('/blog/')}
             class="mono inline-flex w-fit items-center gap-2 rounded-full border border-ink px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:border-tape hover:bg-tape hover:text-surface"
           >
             Ver todas →
@@ -105,7 +106,7 @@ const projects = [
             <h2 class="serif text-4xl font-black tracking-tight md:text-5xl">Proyectos</h2>
           </div>
           <a
-            href="/proyectos/"
+            href={withBase('/proyectos/')}
             class="mono inline-flex w-fit items-center gap-2 rounded-full border border-ink px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:border-flare hover:bg-flare hover:text-ink"
           >
             Ver todos →
@@ -114,7 +115,7 @@ const projects = [
         <div class="grid gap-8 lg:grid-cols-2">
           {projects.map((project) => (
             <a
-              href={`/proyectos/#${project.id}`}
+              href={`${withBase('/proyectos/')}#${project.id}`}
               class="flex flex-col gap-3 rounded-lg border border-ink/15 bg-surface p-6 no-underline transition-colors hover:border-ink md:p-8"
             >
               <span class={`tape w-fit ${project.tape}`}>{project.kicker}</span>
@@ -143,7 +144,7 @@ const projects = [
               lo que construyo y las dudas que me van apareciendo en el camino.
             </p>
             <a
-              href="/sobre-mi/"
+              href={withBase('/sobre-mi/')}
               class="mt-4 inline-block w-fit font-bold text-surf underline decoration-2 underline-offset-4"
             >
               Conóceme más →

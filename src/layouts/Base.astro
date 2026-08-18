@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { withBase } from '@lib/paths';
 
 interface Props {
   title: string;
@@ -12,12 +13,24 @@ const {
 } = Astro.props;
 
 const navLinks = [
-  { href: '/', label: 'Inicio', hover: 'hover:text-surf' },
-  { href: '/blog/', label: 'Notas', hover: 'hover:text-tape' },
-  { href: '/proyectos/', label: 'Proyectos', hover: 'hover:text-flare' },
-  { href: '/sobre-mi/', label: 'Sobre mí', hover: 'hover:text-surf' },
-  { href: '/cv/', label: 'CV', hover: 'hover:text-tape' },
+  { href: '/', label: 'Inicio', accent: 'surf' },
+  { href: '/blog/', label: 'Notas', accent: 'tape' },
+  { href: '/proyectos/', label: 'Proyectos', accent: 'flare' },
+  { href: '/sobre-mi/', label: 'Sobre mí', accent: 'surf' },
+  { href: '/cv/', label: 'CV', accent: 'tape' },
 ];
+
+const navStyles: Record<string, { active: string; hover: string }> = {
+  surf: { active: 'text-surf decoration-surf', hover: 'hover:text-surf hover:decoration-surf' },
+  tape: { active: 'text-tape decoration-tape', hover: 'hover:text-tape hover:decoration-tape' },
+  flare: { active: 'text-flare decoration-flare', hover: 'hover:text-flare hover:decoration-flare' },
+};
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => {
+  const resolved = withBase(href);
+  return href === '/' ? pathname === resolved : pathname.startsWith(resolved);
+};
 ---
 
 <!doctype html>
@@ -26,7 +39,7 @@ const navLinks = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" />
+    <link rel="icon" href={withBase('/favicon.svg')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -36,27 +49,35 @@ const navLinks = [
     <title>{title} · Ricardo Pérez</title>
   </head>
   <body>
-    <header class="border-b border-ink/15 bg-surface">
+    <header class="border-b-4 border-tape bg-ink text-paper">
       <div class="mx-auto flex max-w-7xl flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
-        <a href="/" class="serif text-2xl font-black tracking-tight no-underline">
+        <a href={withBase('/')} class="serif text-2xl font-black tracking-tight text-paper no-underline">
           Ricardo Pérez
         </a>
         <nav class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm font-bold uppercase tracking-wide">
-          {navLinks.map((link) => (
-            <a
-              class={`no-underline decoration-2 underline-offset-4 hover:underline ${link.hover}`}
-              href={link.href}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <a
+                class={`no-underline decoration-2 underline-offset-4 transition-colors hover:underline ${
+                  active
+                    ? `underline ${navStyles[link.accent].active}`
+                    : `text-paper/70 ${navStyles[link.accent].hover}`
+                }`}
+                href={withBase(link.href)}
+                aria-current={active ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
       </div>
     </header>
 
     <slot />
 
-    <footer class="border-t border-ink/15 bg-surface p-4">
+    <footer class="border-t-4 border-surf bg-surface p-4">
       <div class="mx-auto flex max-w-7xl flex-col justify-between gap-2 font-mono text-xs uppercase tracking-wide text-ink/60 md:flex-row">
         <span>Ricardo Pérez / México</span>
         <span>Notas, lab y cosas que construyo</span>
