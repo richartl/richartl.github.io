@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import { Button, Card, Pill } from '@eliancodes/brutal-ui';
+import Base from '@layouts/Base.astro';
+import PostCard from '@components/PostCard.astro';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Base
+  title="Inicio"
+  description="Archivo personal de Ricardo Pérez: SRE, DevOps, software, música y proyectos."
+>
+  <main>
+    <section class="border-b-[3px] border-black bg-[#f8a8d4] p-5 md:p-8">
+      <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
+        <div class="lg:col-span-2">
+          <Card>
+            <div class="flex min-h-[420px] flex-col justify-between gap-8">
+              <div class="flex flex-wrap gap-2">
+                <Pill>SRE</Pill>
+                <Pill>DEVOPS</Pill>
+                <Pill>SOFTWARE</Pill>
+                <Pill>MÚSICA</Pill>
+              </div>
+              <div>
+                <p class="mono mb-4 text-sm font-black uppercase">Archivo personal / 2026</p>
+                <h1 class="max-w-5xl text-5xl font-black uppercase leading-[.82] tracking-[-0.07em] sm:text-7xl md:text-8xl lg:text-[8rem]">
+                  Aprendo.<br />
+                  Rompo.<br />
+                  Documento.
+                </h1>
+              </div>
+              <p class="max-w-2xl text-xl font-bold md:text-2xl">
+                Notas sobre sistemas, software, infraestructura, música y cosas que construyo.
+              </p>
+            </div>
+          </Card>
+        </div>
+
+        <div class="flex flex-col gap-8">
+          <Card>
+            <p class="mono text-sm font-black uppercase">¿Qué es esto?</p>
+            <h2 class="mt-4 text-4xl font-black leading-none">Un cuaderno técnico público.</h2>
+            <p class="mt-4 text-lg">
+              No intento tener todas las respuestas. Escribo para entender mejor lo que voy aprendiendo.
+            </p>
+          </Card>
+
+          <Card>
+            <p class="mono text-sm font-black uppercase">Ahora mismo</p>
+            <ul class="mt-4 space-y-3 font-black uppercase">
+              <li>→ SRE y observabilidad</li>
+              <li>→ OpenShift</li>
+              <li>→ DevSecOps</li>
+              <li>→ Proyectos personales</li>
+            </ul>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b-[3px] border-black bg-[#86efac] p-5 md:p-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-8 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+          <div>
+            <p class="mono text-sm font-black uppercase">NOTE / LAB / BUILD</p>
+            <h2 class="text-5xl font-black uppercase tracking-[-0.05em] md:text-7xl">Últimas notas</h2>
+          </div>
+          <Button href="/blog/" target="_self">Ver todas →</Button>
+        </div>
+        <div class="grid gap-8 lg:grid-cols-3">
+          {posts.map((post) => <PostCard post={post} />)}
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos" class="border-b-[3px] border-black bg-[#93c5fd] p-5 md:p-8">
+      <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
+        <Card>
+          <p class="mono text-sm font-black uppercase">BUILD_001</p>
+          <h2 class="mt-4 text-5xl font-black uppercase leading-none">Repository Security Scanner</h2>
+          <p class="mt-4 text-lg">SAST, SCA, DAST, imágenes y manifiestos de Kubernetes en un mismo flujo.</p>
+        </Card>
+        <Card>
+          <p class="mono text-sm font-black uppercase">BUILD_002</p>
+          <h2 class="mt-4 text-5xl font-black uppercase leading-none">OpenShift Monitoring</h2>
+          <p class="mt-4 text-lg">Experimentos para automatizar instrumentación y monitoreo de aplicaciones.</p>
+        </Card>
+      </div>
+    </section>
+
+    <section id="sobre-mi" class="bg-[#d8b4fe] p-5 md:p-8">
+      <div class="mx-auto max-w-7xl">
+        <Card>
+          <div class="grid gap-8 lg:grid-cols-3">
+            <div>
+              <p class="mono text-sm font-black uppercase">ABOUT</p>
+              <h2 class="mt-4 text-6xl font-black uppercase tracking-[-0.06em]">Ricardo Pérez</h2>
+            </div>
+            <div class="lg:col-span-2">
+              <p class="text-2xl font-bold leading-tight md:text-4xl">
+                Trabajo con infraestructura, software y plataformas. Este sitio es donde documento lo que aprendo,
+                lo que construyo y las dudas que me van apareciendo en el camino.
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </section>
+  </main>
+</Base>

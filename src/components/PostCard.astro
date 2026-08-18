@@ -1,0 +1,26 @@
+---
+import { Card, Pill } from '@eliancodes/brutal-ui';
+
+const { post } = Astro.props;
+const date = post.data.pubDate.toLocaleDateString('es-MX', {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+});
+---
+
+<Card>
+  <article class="flex h-full flex-col gap-4">
+    <div class="flex flex-wrap gap-2">
+      {post.data.tags.map((tag: string) => <Pill>{tag}</Pill>)}
+    </div>
+    <p class="mono text-xs font-bold uppercase">{date}</p>
+    <h2 class="text-3xl font-black leading-[.95] md:text-5xl">
+      <a class="no-underline" href={`/blog/${post.id}/`}>{post.data.title}</a>
+    </h2>
+    <p class="text-lg">{post.data.description}</p>
+    <a class="mt-auto font-black uppercase underline decoration-[3px]" href={`/blog/${post.id}/`}>
+      Leer nota →
+    </a>
+  </article>
+</Card>

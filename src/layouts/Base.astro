@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Notas sobre sistemas, software, música y cosas que construyo.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <title>{title} · Ricardo Pérez</title>
+  </head>
+  <body>
+    <header class="border-b-[3px] border-black bg-white">
+      <div class="mx-auto flex max-w-7xl flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
+        <a href="/" class="text-3xl font-black uppercase tracking-[-0.05em] no-underline">
+          Ricardo Pérez
+        </a>
+        <nav class="flex flex-wrap gap-2 text-sm font-black uppercase">
+          <a class="border-2 border-black bg-[#fde047] px-3 py-2 hover:translate-x-[2px] hover:translate-y-[2px]" href="/">Inicio</a>
+          <a class="border-2 border-black bg-[#86efac] px-3 py-2 hover:translate-x-[2px] hover:translate-y-[2px]" href="/blog/">Notas</a>
+          <a class="border-2 border-black bg-[#93c5fd] px-3 py-2 hover:translate-x-[2px] hover:translate-y-[2px]" href="/#proyectos">Proyectos</a>
+          <a class="border-2 border-black bg-[#d8b4fe] px-3 py-2 hover:translate-x-[2px] hover:translate-y-[2px]" href="/#sobre-mi">Sobre mí</a>
+        </nav>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="border-t-[3px] border-black bg-white p-4">
+      <div class="mx-auto flex max-w-7xl flex-col justify-between gap-2 text-sm font-bold uppercase md:flex-row">
+        <span>Ricardo Pérez / México</span>
+        <span>Notas, lab y cosas que construyo</span>
+      </div>
+    </footer>
+  </body>
+</html>
