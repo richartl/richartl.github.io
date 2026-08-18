@@ -74,6 +74,11 @@ a {
   color: var(--color-paper);
 }
 
+.tape-paper {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
 .prose {
   max-width: 75ch;
   --tw-prose-body: var(--color-ink);
