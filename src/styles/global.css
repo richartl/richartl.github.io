@@ -1,14 +1,17 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-:root {
-  --bg: #f8a8d4;
-  --ink: #000;
-  --paper: #fffdf7;
-  --green: #86efac;
-  --blue: #93c5fd;
-  --purple: #d8b4fe;
-  --yellow: #fde047;
+@theme {
+  --color-paper: #ede9e3;
+  --color-surface: #faf8f2;
+  --color-ink: #161513;
+  --color-surf: #5fa8a0;
+  --color-tape: #e8622c;
+  --color-flare: #ff5fa2;
+
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
 }
 
 html {
@@ -17,50 +20,105 @@ html {
 
 body {
   margin: 0;
-  color: var(--ink);
-  background: var(--bg);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font-family: var(--font-sans);
 }
 
 a {
   color: inherit;
 }
 
-.brutal-shadow {
-  box-shadow: 8px 8px 0 var(--ink);
-}
-
-.brutal-shadow-sm {
-  box-shadow: 5px 5px 0 var(--ink);
-}
-
 .serif {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-serif);
 }
 
 .mono {
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono);
+}
+
+/* Tira de cinta adhesiva: kicker / tag punk-zine */
+.tape {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.65rem;
+  transform: rotate(-1.5deg);
+  box-shadow: 1px 2px 5px rgb(22 21 19 / 0.18);
+}
+
+.tape-r {
+  transform: rotate(1.5deg);
+}
+
+.tape-surf {
+  background: var(--color-surf);
+  color: var(--color-ink);
+}
+
+.tape-tape {
+  background: var(--color-tape);
+  color: var(--color-surface);
+}
+
+.tape-flare {
+  background: var(--color-flare);
+  color: var(--color-ink);
+}
+
+.tape-ink {
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .prose {
   max-width: 75ch;
+  --tw-prose-body: var(--color-ink);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-quotes: var(--color-ink);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
 }
 
 .prose a {
+  color: var(--color-surf);
   font-weight: 700;
   text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-tape);
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-ink);
 }
 
 .prose pre {
-  border: 3px solid #000;
-  box-shadow: 5px 5px 0 #000;
-  background: #111;
-  color: #fff;
+  border: 1px solid var(--color-ink);
+  border-radius: 0.5rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .prose code:not(pre code) {
-  background: var(--yellow);
-  color: #000;
-  padding: .15rem .3rem;
-  border: 1px solid #000;
+  background: color-mix(in srgb, var(--color-flare) 20%, var(--color-surface));
+  color: var(--color-ink);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+.prose hr {
+  border-color: color-mix(in srgb, var(--color-ink) 15%, transparent);
 }

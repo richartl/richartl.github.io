@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import { Button, Card, Pill } from '@eliancodes/brutal-ui';
 import Base from '@layouts/Base.astro';
 import PostCard from '@components/PostCard.astro';
 
@@ -8,6 +7,13 @@ const posts = (await getCollection('blog'))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const focusTags = [
+  { label: 'SRE', tape: 'tape-surf' },
+  { label: 'DevOps', tape: 'tape-tape' },
+  { label: 'Software', tape: 'tape-flare tape-r' },
+  { label: 'Música', tape: 'tape-ink' },
+];
 ---
 
 <Base
@@ -15,62 +21,61 @@ const posts = (await getCollection('blog'))
   description="Archivo personal de Ricardo Pérez: SRE, DevOps, software, música y proyectos."
 >
   <main>
-    <section class="border-b-[3px] border-black bg-[#f8a8d4] p-5 md:p-8">
+    <section class="border-b border-ink/15 p-5 md:p-8">
       <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
-        <div class="lg:col-span-2">
-          <Card>
-            <div class="flex min-h-[420px] flex-col justify-between gap-8">
-              <div class="flex flex-wrap gap-2">
-                <Pill>SRE</Pill>
-                <Pill>DEVOPS</Pill>
-                <Pill>SOFTWARE</Pill>
-                <Pill>MÚSICA</Pill>
-              </div>
-              <div>
-                <p class="mono mb-4 text-sm font-black uppercase">Archivo personal / 2026</p>
-                <h1 class="max-w-5xl text-5xl font-black uppercase leading-[.82] tracking-[-0.07em] sm:text-7xl md:text-8xl lg:text-[8rem]">
-                  Aprendo.<br />
-                  Rompo.<br />
-                  Documento.
-                </h1>
-              </div>
-              <p class="max-w-2xl text-xl font-bold md:text-2xl">
-                Notas sobre sistemas, software, infraestructura, música y cosas que construyo.
-              </p>
+        <div class="rounded-lg border border-ink/15 bg-surface p-6 lg:col-span-2 md:p-10">
+          <div class="flex min-h-[380px] flex-col justify-between gap-8">
+            <div class="flex flex-wrap gap-3">
+              {focusTags.map((tag) => <span class={`tape ${tag.tape}`}>{tag.label}</span>)}
             </div>
-          </Card>
+            <div>
+              <p class="mono mb-3 text-sm font-bold uppercase tracking-wide text-ink/60">Archivo personal / 2026</p>
+              <h1 class="serif max-w-4xl text-5xl font-black leading-[.95] tracking-tight sm:text-6xl md:text-7xl">
+                Aprendo. Rompo.
+                <span class="underline decoration-tape decoration-[6px] underline-offset-4">Documento.</span>
+              </h1>
+            </div>
+            <p class="max-w-2xl text-lg text-ink/80 md:text-xl">
+              Notas sobre sistemas, software, infraestructura, música y cosas que construyo.
+            </p>
+          </div>
         </div>
 
-        <div class="flex flex-col gap-8">
-          <Card>
-            <p class="mono text-sm font-black uppercase">¿Qué es esto?</p>
-            <h2 class="mt-4 text-4xl font-black leading-none">Un cuaderno técnico público.</h2>
-            <p class="mt-4 text-lg">
+        <div class="flex flex-col gap-6">
+          <div class="rounded-lg border border-ink/15 bg-surface p-6">
+            <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">¿Qué es esto?</p>
+            <h2 class="serif mt-3 text-3xl font-bold leading-tight">Un cuaderno técnico público.</h2>
+            <p class="mt-3 text-ink/80">
               No intento tener todas las respuestas. Escribo para entender mejor lo que voy aprendiendo.
             </p>
-          </Card>
+          </div>
 
-          <Card>
-            <p class="mono text-sm font-black uppercase">Ahora mismo</p>
-            <ul class="mt-4 space-y-3 font-black uppercase">
-              <li>→ SRE y observabilidad</li>
-              <li>→ OpenShift</li>
-              <li>→ DevSecOps</li>
-              <li>→ Proyectos personales</li>
+          <div class="rounded-lg border border-ink/15 bg-surface p-6">
+            <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">Ahora mismo</p>
+            <ul class="mt-3 space-y-2 text-ink/80">
+              <li class="flex items-center gap-2"><span class="text-surf">→</span> SRE y observabilidad</li>
+              <li class="flex items-center gap-2"><span class="text-tape">→</span> OpenShift</li>
+              <li class="flex items-center gap-2"><span class="text-flare">→</span> DevSecOps</li>
+              <li class="flex items-center gap-2"><span class="text-surf">→</span> Proyectos personales</li>
             </ul>
-          </Card>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="border-b-[3px] border-black bg-[#86efac] p-5 md:p-8">
+    <section class="border-b border-ink/15 p-5 md:p-8">
       <div class="mx-auto max-w-7xl">
         <div class="mb-8 flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>
-            <p class="mono text-sm font-black uppercase">NOTE / LAB / BUILD</p>
-            <h2 class="text-5xl font-black uppercase tracking-[-0.05em] md:text-7xl">Últimas notas</h2>
+            <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">Note / Lab / Build</p>
+            <h2 class="serif text-4xl font-black tracking-tight md:text-5xl">Últimas notas</h2>
           </div>
-          <Button href="/blog/" target="_self">Ver todas →</Button>
+          <a
+            href="/blog/"
+            class="mono inline-flex w-fit items-center gap-2 rounded-full border border-ink px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:border-tape hover:bg-tape hover:text-surface"
+          >
+            Ver todas →
+          </a>
         </div>
         <div class="grid gap-8 lg:grid-cols-3">
           {posts.map((post) => <PostCard post={post} />)}
@@ -78,37 +83,40 @@ const posts = (await getCollection('blog'))
       </div>
     </section>
 
-    <section id="proyectos" class="border-b-[3px] border-black bg-[#93c5fd] p-5 md:p-8">
-      <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
-        <Card>
-          <p class="mono text-sm font-black uppercase">BUILD_001</p>
-          <h2 class="mt-4 text-5xl font-black uppercase leading-none">Repository Security Scanner</h2>
-          <p class="mt-4 text-lg">SAST, SCA, DAST, imágenes y manifiestos de Kubernetes en un mismo flujo.</p>
-        </Card>
-        <Card>
-          <p class="mono text-sm font-black uppercase">BUILD_002</p>
-          <h2 class="mt-4 text-5xl font-black uppercase leading-none">OpenShift Monitoring</h2>
-          <p class="mt-4 text-lg">Experimentos para automatizar instrumentación y monitoreo de aplicaciones.</p>
-        </Card>
+    <section id="proyectos" class="border-b border-ink/15 p-5 md:p-8">
+      <div class="mx-auto max-w-7xl">
+        <p class="mono mb-6 text-xs font-bold uppercase tracking-wide text-ink/60">Build</p>
+        <div class="grid gap-8 lg:grid-cols-2">
+          <div class="rounded-lg border border-ink/15 bg-surface p-6 md:p-8">
+            <span class="tape tape-surf">Build_001</span>
+            <h2 class="serif mt-4 text-3xl font-bold leading-tight md:text-4xl">Repository Security Scanner</h2>
+            <p class="mt-3 text-ink/80">SAST, SCA, DAST, imágenes y manifiestos de Kubernetes en un mismo flujo.</p>
+          </div>
+          <div class="rounded-lg border border-ink/15 bg-surface p-6 md:p-8">
+            <span class="tape tape-tape">Build_002</span>
+            <h2 class="serif mt-4 text-3xl font-bold leading-tight md:text-4xl">OpenShift Monitoring</h2>
+            <p class="mt-3 text-ink/80">Experimentos para automatizar instrumentación y monitoreo de aplicaciones.</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="sobre-mi" class="bg-[#d8b4fe] p-5 md:p-8">
+    <section id="sobre-mi" class="p-5 md:p-8">
       <div class="mx-auto max-w-7xl">
-        <Card>
+        <div class="rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
           <div class="grid gap-8 lg:grid-cols-3">
             <div>
-              <p class="mono text-sm font-black uppercase">ABOUT</p>
-              <h2 class="mt-4 text-6xl font-black uppercase tracking-[-0.06em]">Ricardo Pérez</h2>
+              <span class="tape tape-flare">About</span>
+              <h2 class="serif mt-4 text-4xl font-black tracking-tight">Ricardo Pérez</h2>
             </div>
             <div class="lg:col-span-2">
-              <p class="text-2xl font-bold leading-tight md:text-4xl">
+              <p class="serif text-2xl leading-snug text-ink/90 md:text-3xl">
                 Trabajo con infraestructura, software y plataformas. Este sitio es donde documento lo que aprendo,
                 lo que construyo y las dudas que me van apareciendo en el camino.
               </p>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </section>
   </main>

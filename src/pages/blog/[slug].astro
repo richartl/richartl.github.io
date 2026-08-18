@@ -1,6 +1,5 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { Pill } from '@eliancodes/brutal-ui';
 import Base from '@layouts/Base.astro';
 
 export async function getStaticPaths() {
@@ -19,23 +18,27 @@ const date = post.data.pubDate.toLocaleDateString('es-MX', {
   month: 'long',
   day: 'numeric',
 });
+
+const tapeStyles = ['tape-surf', 'tape-tape', 'tape-flare tape-r'];
 ---
 
 <Base title={post.data.title} description={post.data.description}>
-  <main class="min-h-screen bg-[#f8a8d4] p-5 md:p-8">
+  <main class="min-h-screen p-5 md:p-8">
     <article class="mx-auto max-w-5xl">
-      <header class="border-[3px] border-black bg-white p-6 brutal-shadow md:p-10">
+      <header class="rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
         <div class="mb-5 flex flex-wrap gap-2">
-          {post.data.tags.map((tag: string) => <Pill>{tag}</Pill>)}
+          {post.data.tags.map((tag: string, i: number) => (
+            <span class={`tape ${tapeStyles[i % tapeStyles.length]}`}>{tag}</span>
+          ))}
         </div>
-        <p class="mono text-sm font-black uppercase">{date} / {post.data.author}</p>
-        <h1 class="mt-5 text-5xl font-black leading-[.9] tracking-[-0.055em] md:text-8xl">
+        <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">{date} / {post.data.author}</p>
+        <h1 class="serif mt-4 text-4xl font-black leading-tight tracking-tight md:text-6xl">
           {post.data.title}
         </h1>
-        <p class="mt-6 max-w-3xl text-xl font-bold md:text-2xl">{post.data.description}</p>
+        <p class="mt-5 max-w-3xl text-lg text-ink/80 md:text-xl">{post.data.description}</p>
       </header>
 
-      <div class="prose prose-lg mt-10 max-w-none border-[3px] border-black bg-white p-6 brutal-shadow md:p-10">
+      <div class="prose prose-lg mt-10 max-w-none rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
         <Content />
       </div>
     </article>
