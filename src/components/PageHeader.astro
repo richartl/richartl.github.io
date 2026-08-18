@@ -1,0 +1,16 @@
+---
+interface Props {
+  kicker: string;
+  kickerTape?: string;
+  title: string;
+  subtitle?: string;
+}
+
+const { kicker, kickerTape = 'tape-surf', title, subtitle } = Astro.props;
+---
+
+<div class="mb-10 rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
+  <span class={`tape ${kickerTape}`}>{kicker}</span>
+  <h1 class="serif mt-4 text-5xl font-black tracking-tight md:text-6xl">{title}</h1>
+  {subtitle && <p class="mt-4 max-w-3xl text-lg text-ink/80 md:text-xl">{subtitle}</p>}
+</div>

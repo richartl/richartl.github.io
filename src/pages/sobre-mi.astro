@@ -1,0 +1,32 @@
+---
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+---
+
+<Base title="Sobre mí" description="Quién soy y qué hago: Ricardo Pérez.">
+  <main class="min-h-screen p-5 md:p-8">
+    <div class="mx-auto max-w-4xl">
+      <PageHeader
+        kicker="About"
+        kickerTape="tape-flare"
+        title="Ricardo Pérez"
+        subtitle="Infraestructura, software, música y notas sueltas de lo que voy aprendiendo."
+      />
+
+      <div class="prose prose-lg max-w-none rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
+        <p>
+          Trabajo con infraestructura, software y plataformas. Este sitio es donde documento lo que aprendo,
+          lo que construyo y las dudas que me van apareciendo en el camino.
+        </p>
+        <p>
+          Me interesa sobre todo la parte de SRE, observabilidad y DevSecOps: entender por qué un sistema se
+          comporta como se comporta, no solo mantenerlo prendido.
+        </p>
+        <p>
+          Fuera de la pantalla toco el bajo — de ahí el verde surf de esta paleta — y me gusta la música punk
+          y rock en general. Este blog intenta tener un poco de esa actitud.
+        </p>
+      </div>
+    </div>
+  </main>
+</Base>

@@ -14,6 +14,23 @@ const focusTags = [
   { label: 'Software', tape: 'tape-flare tape-r' },
   { label: 'Música', tape: 'tape-ink' },
 ];
+
+const projects = [
+  {
+    id: 'repository-security-scanner',
+    tape: 'tape-surf',
+    kicker: 'Build_001',
+    title: 'Repository Security Scanner',
+    description: 'SAST, SCA, DAST, imágenes y manifiestos de Kubernetes en un mismo flujo.',
+  },
+  {
+    id: 'openshift-monitoring',
+    tape: 'tape-tape',
+    kicker: 'Build_002',
+    title: 'OpenShift Monitoring',
+    description: 'Experimentos para automatizar instrumentación y monitoreo de aplicaciones.',
+  },
+];
 ---
 
 <Base
@@ -21,48 +38,44 @@ const focusTags = [
   description="Archivo personal de Ricardo Pérez: SRE, DevOps, software, música y proyectos."
 >
   <main>
+    <!-- Hero: sin caja, para que no se confunda con las tarjetas clicables de abajo -->
     <section class="border-b border-ink/15 p-5 md:p-8">
-      <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
-        <div class="rounded-lg border border-ink/15 bg-surface p-6 lg:col-span-2 md:p-10">
-          <div class="flex min-h-[380px] flex-col justify-between gap-8">
-            <div class="flex flex-wrap gap-3">
-              {focusTags.map((tag) => <span class={`tape ${tag.tape}`}>{tag.label}</span>)}
-            </div>
-            <div>
-              <p class="mono mb-3 text-sm font-bold uppercase tracking-wide text-ink/60">Archivo personal / 2026</p>
-              <h1 class="serif max-w-4xl text-5xl font-black leading-[.95] tracking-tight sm:text-6xl md:text-7xl">
-                Aprendo. Rompo.
-                <span class="underline decoration-tape decoration-[6px] underline-offset-4">Documento.</span>
-              </h1>
-            </div>
-            <p class="max-w-2xl text-lg text-ink/80 md:text-xl">
-              Notas sobre sistemas, software, infraestructura, música y cosas que construyo.
-            </p>
-          </div>
+      <div class="mx-auto max-w-7xl">
+        <div class="flex flex-wrap gap-3">
+          {focusTags.map((tag) => <span class={`tape ${tag.tape}`}>{tag.label}</span>)}
         </div>
 
-        <div class="flex flex-col gap-6">
-          <div class="rounded-lg border border-ink/15 bg-surface p-6">
+        <p class="mono mt-6 text-sm font-bold uppercase tracking-wide text-ink/60">Archivo personal / 2026</p>
+        <h1 class="serif mt-3 max-w-4xl text-5xl font-black leading-[.95] tracking-tight sm:text-6xl md:text-7xl">
+          Aprendo. Rompo.
+          <span class="underline decoration-tape decoration-[6px] underline-offset-4">Documento.</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg text-ink/80 md:text-xl">
+          Notas sobre sistemas, software, infraestructura, música y cosas que construyo.
+        </p>
+
+        <div class="mt-10 grid gap-8 border-t border-ink/15 pt-8 sm:grid-cols-2">
+          <div class="border-l-2 border-surf pl-4">
             <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">¿Qué es esto?</p>
-            <h2 class="serif mt-3 text-3xl font-bold leading-tight">Un cuaderno técnico público.</h2>
-            <p class="mt-3 text-ink/80">
+            <p class="serif mt-2 text-xl font-bold leading-snug">Un cuaderno técnico público.</p>
+            <p class="mt-2 text-ink/80">
               No intento tener todas las respuestas. Escribo para entender mejor lo que voy aprendiendo.
             </p>
           </div>
-
-          <div class="rounded-lg border border-ink/15 bg-surface p-6">
+          <div class="border-l-2 border-tape pl-4">
             <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">Ahora mismo</p>
-            <ul class="mt-3 space-y-2 text-ink/80">
-              <li class="flex items-center gap-2"><span class="text-surf">→</span> SRE y observabilidad</li>
-              <li class="flex items-center gap-2"><span class="text-tape">→</span> OpenShift</li>
-              <li class="flex items-center gap-2"><span class="text-flare">→</span> DevSecOps</li>
-              <li class="flex items-center gap-2"><span class="text-surf">→</span> Proyectos personales</li>
+            <ul class="mt-2 space-y-1 text-ink/80">
+              <li>→ SRE y observabilidad</li>
+              <li>→ OpenShift</li>
+              <li>→ DevSecOps</li>
+              <li>→ Proyectos personales</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Últimas notas: tarjetas clicables, mismo trato visual que /blog/ -->
     <section class="border-b border-ink/15 p-5 md:p-8">
       <div class="mx-auto max-w-7xl">
         <div class="mb-8 flex flex-col justify-between gap-3 md:flex-row md:items-end">
@@ -83,38 +96,58 @@ const focusTags = [
       </div>
     </section>
 
+    <!-- Proyectos: también tarjetas clicables, llevan a /proyectos/ -->
     <section id="proyectos" class="border-b border-ink/15 p-5 md:p-8">
       <div class="mx-auto max-w-7xl">
-        <p class="mono mb-6 text-xs font-bold uppercase tracking-wide text-ink/60">Build</p>
+        <div class="mb-8 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+          <div>
+            <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">Build</p>
+            <h2 class="serif text-4xl font-black tracking-tight md:text-5xl">Proyectos</h2>
+          </div>
+          <a
+            href="/proyectos/"
+            class="mono inline-flex w-fit items-center gap-2 rounded-full border border-ink px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:border-flare hover:bg-flare hover:text-ink"
+          >
+            Ver todos →
+          </a>
+        </div>
         <div class="grid gap-8 lg:grid-cols-2">
-          <div class="rounded-lg border border-ink/15 bg-surface p-6 md:p-8">
-            <span class="tape tape-surf">Build_001</span>
-            <h2 class="serif mt-4 text-3xl font-bold leading-tight md:text-4xl">Repository Security Scanner</h2>
-            <p class="mt-3 text-ink/80">SAST, SCA, DAST, imágenes y manifiestos de Kubernetes en un mismo flujo.</p>
-          </div>
-          <div class="rounded-lg border border-ink/15 bg-surface p-6 md:p-8">
-            <span class="tape tape-tape">Build_002</span>
-            <h2 class="serif mt-4 text-3xl font-bold leading-tight md:text-4xl">OpenShift Monitoring</h2>
-            <p class="mt-3 text-ink/80">Experimentos para automatizar instrumentación y monitoreo de aplicaciones.</p>
-          </div>
+          {projects.map((project) => (
+            <a
+              href={`/proyectos/#${project.id}`}
+              class="flex flex-col gap-3 rounded-lg border border-ink/15 bg-surface p-6 no-underline transition-colors hover:border-ink md:p-8"
+            >
+              <span class={`tape w-fit ${project.tape}`}>{project.kicker}</span>
+              <h3 class="serif text-3xl font-bold leading-tight md:text-4xl">{project.title}</h3>
+              <p class="text-ink/80">{project.description}</p>
+              <span class="mt-auto w-fit font-bold text-surf underline decoration-2 underline-offset-4">
+                Ver proyecto →
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
 
+    <!-- Sobre mí: teaser sin caja, con link a la página completa -->
     <section id="sobre-mi" class="p-5 md:p-8">
       <div class="mx-auto max-w-7xl">
-        <div class="rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
-          <div class="grid gap-8 lg:grid-cols-3">
-            <div>
-              <span class="tape tape-flare">About</span>
-              <h2 class="serif mt-4 text-4xl font-black tracking-tight">Ricardo Pérez</h2>
-            </div>
-            <div class="lg:col-span-2">
-              <p class="serif text-2xl leading-snug text-ink/90 md:text-3xl">
-                Trabajo con infraestructura, software y plataformas. Este sitio es donde documento lo que aprendo,
-                lo que construyo y las dudas que me van apareciendo en el camino.
-              </p>
-            </div>
+        <div class="grid gap-4 lg:grid-cols-3">
+          <div>
+            <span class="tape tape-flare">About</span>
+            <h2 class="serif mt-4 text-4xl font-black tracking-tight">Ricardo Pérez</h2>
+          </div>
+          <div class="lg:col-span-2">
+            <p class="serif text-2xl leading-snug text-ink/90 md:text-3xl">
+              Trabajo con infraestructura, software y plataformas. Este sitio es donde documento lo que aprendo,
+              lo que construyo y las dudas que me van apareciendo en el camino.
+            </p>
+            <a
+              href="/sobre-mi/"
+              class="mt-4 inline-block w-fit font-bold text-surf underline decoration-2 underline-offset-4"
+            >
+              Conóceme más →
+            </a>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
 import PostCard from '@components/PostCard.astro';
 
 const posts = (await getCollection('blog'))
@@ -11,13 +12,11 @@ const posts = (await getCollection('blog'))
 <Base title="Notas" description="Notas y experimentos de Ricardo Pérez.">
   <main class="min-h-screen p-5 md:p-8">
     <div class="mx-auto max-w-7xl">
-      <div class="mb-10 rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
-        <span class="tape tape-surf">Archive</span>
-        <h1 class="serif mt-4 text-5xl font-black tracking-tight md:text-6xl">Notas</h1>
-        <p class="mt-4 max-w-3xl text-lg text-ink/80 md:text-xl">
-          Lo que voy entendiendo, probando, rompiendo y volviendo a intentar.
-        </p>
-      </div>
+      <PageHeader
+        kicker="Archive"
+        title="Notas"
+        subtitle="Lo que voy entendiendo, probando, rompiendo y volviendo a intentar."
+      />
 
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => <PostCard post={post} />)}
