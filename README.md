@@ -39,8 +39,8 @@ No hace falta tocar componentes `.astro` ni saber Tailwind para agregar o editar
 También podés usar `.mdx` en cualquiera de las tres colecciones (`src/data/blog`,
 `src/data/pages`, `src/data/projects`) cuando necesites algo que Markdown puro no puede: HTML/JSX
 embebido, `export const` con JS, o importar y usar un componente `.astro`/`.tsx` dentro del post.
-El front matter funciona igual. El panel de Decap CMS solo lista/crea archivos `.md` (no soporta
-mezclar extensiones en una colección), así que un `.mdx` se escribe a mano.
+El front matter funciona igual. El panel de Decap CMS está configurado para trabajar con `.mdx`
+(no soporta mezclar extensiones dentro de una misma colección).
 
 ### Agregar una nueva nota
 
