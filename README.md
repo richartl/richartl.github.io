@@ -133,6 +133,38 @@ El menú **no** sale de Markdown — es la única parte de la navegación que se
 Agregar una página nueva no la agrega sola al menú — si quieres que aparezca ahí, añade una línea
 a `navLinks`.
 
+## Editar el contenido con un panel visual (Decap CMS, 100% local)
+
+Si no quieres escribir Markdown a mano, hay un panel de administración en `/admin`
+([Decap CMS](https://decapcms.org)) que corre **solo en local**: no hay login, no hay
+servicio en la nube, no requiere internet. Guarda los cambios directamente en los
+archivos `.md` de tu copia del repo — luego los subes a GitHub como cualquier otro cambio
+(`git add`, `git commit`, `git push`).
+
+`docker compose up` ya levanta todo lo necesario (Astro + el proxy local de Decap). Abre:
+
+```text
+http://localhost:4321/admin/index.html
+```
+
+(Nota: hay que entrar con `/index.html` al final — el servidor de desarrollo de Astro no
+resuelve `/admin/` a su `index.html` automáticamente. En el sitio publicado sí funciona `/admin/` a secas.)
+
+Si prefieres correrlo sin Docker (con pnpm instalado):
+
+```bash
+pnpm install
+pnpm dev:cms
+```
+
+El panel tiene tres colecciones (Blog, Páginas, Proyectos) que reflejan las carpetas de
+`src/data/`. Al guardar o publicar una entrada, Decap escribe el archivo `.md` correspondiente
+con el mismo formato de front matter que ya usa el proyecto.
+
+El archivo `public/admin/config.yml` define esas colecciones — si agregas un campo nuevo al
+esquema de contenido (`src/content.config.ts` o donde esté definido), agrégalo también ahí para
+que el panel lo muestre.
+
 ## Dominio
 
 Antes de publicar cambia `site` y `base` en `astro.config.ts` por tu dominio/ruta real.
