@@ -39,8 +39,8 @@ No hace falta tocar componentes `.astro` ni saber Tailwind para agregar o editar
 También podés usar `.mdx` en cualquiera de las tres colecciones (`src/data/blog`,
 `src/data/pages`, `src/data/projects`) cuando necesites algo que Markdown puro no puede: HTML/JSX
 embebido, `export const` con JS, o importar y usar un componente `.astro`/`.tsx` dentro del post.
-El front matter funciona igual. El panel de Decap CMS solo lista/crea archivos `.md` (no soporta
-mezclar extensiones en una colección), así que un `.mdx` se escribe a mano.
+El front matter funciona igual. El panel de Decap CMS está configurado para trabajar con `.mdx`
+(no soporta mezclar extensiones dentro de una misma colección).
 
 ### Agregar una nueva nota
 
@@ -170,6 +170,31 @@ con el mismo formato de front matter que ya usa el proyecto.
 El archivo `public/admin/config.yml` define esas colecciones — si agregas un campo nuevo al
 esquema de contenido (`src/content.config.ts` o donde esté definido), agrégalo también ahí para
 que el panel lo muestre.
+
+## Probar TinaCMS (alternativa a Decap, en evaluación)
+
+Hay una segunda configuración de CMS, [TinaCMS](https://tina.io), agregada solo para comparar
+con Decap — no reemplaza nada todavía, ambas conviven. También corre 100% en local (sin
+TinaCloud, sin login) usando el backend de filesystem del propio CLI.
+
+```bash
+pnpm install
+pnpm tina:dev
+```
+
+Abre:
+
+```text
+http://localhost:4321/tina-admin/index.html
+```
+
+(el puerto puede cambiar si el 4321 ya está en uso — el comando lo imprime en la terminal).
+El esquema vive en `tina/config.ts` y refleja las mismas tres colecciones que Decap (Blog,
+Páginas, Proyectos) sobre los mismos archivos `.mdx` de `src/data/`. Los archivos que genera Tina
+al arrancar (`tina/__generated__/`, `public/tina-admin/`) están en `.gitignore`.
+
+Si te quedas con Tina, hay que decidir después qué hacer con Decap (`public/admin/`,
+`decap-server`) para no mantener dos paneles.
 
 ## Dominio
 

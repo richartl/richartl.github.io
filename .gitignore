@@ -12,3 +12,7 @@ dist/
 # Environment
 .env
 .env.*
+
+# TinaCMS (auto-generado por `pnpm tina:dev` / `tinacms build`)
+tina/__generated__/
+public/tina-admin/
