@@ -127,3 +127,31 @@ a {
 .prose hr {
   border-color: color-mix(in srgb, var(--color-ink) 15%, transparent);
 }
+
+.prose details {
+  border-left: 2px solid var(--color-surf);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+}
+
+.prose summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-surf);
+}
+
+.prose summary::marker {
+  color: var(--color-surf);
+}
+
+.prose details[open] summary {
+  margin-bottom: 0.75rem;
+}
+
+.prose details p {
+  margin: 0.5rem 0;
+}
