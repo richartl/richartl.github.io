@@ -182,6 +182,12 @@ pnpm install
 pnpm tina:dev
 ```
 
+Con Docker (levanta un contenedor aparte del de Decap — no los corras juntos, usan el mismo puerto 4321):
+
+```bash
+docker compose --profile tina up blog-tina
+```
+
 Abre:
 
 ```text
