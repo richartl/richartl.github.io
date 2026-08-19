@@ -12,6 +12,12 @@ const {
   description = 'Notas sobre sistemas, software, música y cosas que construyo.'
 } = Astro.props;
 
+// Menú de arriba del sitio. No sale de ningún archivo Markdown — es la única parte
+// de la navegación que se edita aquí, a mano. Para agregar/quitar/renombrar un link:
+//   - href: la ruta del sitio (sin el dominio, con / al inicio y al final).
+//   - label: el texto que se ve en el menú.
+//   - accent: color del subrayado al pasar el mouse o cuando es la página activa.
+//             Solo puede ser 'surf', 'tape' o 'flare' (ver navStyles debajo).
 const navLinks = [
   { href: '/', label: 'Inicio', accent: 'surf' },
   { href: '/blog/', label: 'Notas', accent: 'tape' },

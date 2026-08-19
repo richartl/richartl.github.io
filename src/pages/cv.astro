@@ -1,66 +1,25 @@
 ---
+import { getEntry, render } from 'astro:content';
 import Base from '@layouts/Base.astro';
 import PageHeader from '@components/PageHeader.astro';
 
-const experience = [
-  {
-    range: '[Fecha inicio] — [Fecha fin / Presente]',
-    role: '[Puesto] · [Empresa]',
-    description: '[Breve descripción de responsabilidades y logros.]',
-  },
-  {
-    range: '[Fecha inicio] — [Fecha fin]',
-    role: '[Puesto] · [Empresa]',
-    description: '[Breve descripción de responsabilidades y logros.]',
-  },
-];
-
-const skills = [
-  { label: 'Kubernetes', tape: 'tape-surf' },
-  { label: 'OpenShift', tape: 'tape-tape' },
-  { label: 'Observabilidad', tape: 'tape-flare tape-r' },
-  { label: 'Prometheus', tape: 'tape-surf' },
-  { label: 'DevSecOps', tape: 'tape-tape' },
-];
+const page = await getEntry('pages', 'cv');
+const { Content } = await render(page);
 ---
 
-<Base title="CV" description="Currículum de Ricardo Pérez.">
+<Base title={page.data.title} description={page.data.description}>
   <main class="min-h-screen p-5 md:p-8">
     <div class="mx-auto max-w-4xl">
       <PageHeader
-        kicker="CV"
-        kickerTape="tape-tape"
-        title="Currículum"
-        subtitle="Experiencia, herramientas y formación. (Reemplaza los corchetes con tus datos reales.)"
+        kicker={page.data.kicker}
+        kickerTape={page.data.kickerColor}
+        title={page.data.title}
+        subtitle={page.data.description}
       />
 
-      <section class="mb-8 rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
-        <h2 class="serif text-2xl font-bold">Experiencia</h2>
-        <div class="mt-6 space-y-6">
-          {experience.map((job) => (
-            <div class="border-l-2 border-surf pl-4">
-              <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">{job.range}</p>
-              <h3 class="serif mt-1 text-xl font-bold">{job.role}</h3>
-              <p class="mt-1 text-ink/80">{job.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="mb-8 rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
-        <h2 class="serif text-2xl font-bold">Habilidades</h2>
-        <div class="mt-4 flex flex-wrap gap-3">
-          {skills.map((skill) => <span class={`tape ${skill.tape}`}>{skill.label}</span>)}
-        </div>
-      </section>
-
-      <section class="rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
-        <h2 class="serif text-2xl font-bold">Formación</h2>
-        <div class="mt-4 border-l-2 border-tape pl-4">
-          <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">[Año]</p>
-          <h3 class="serif mt-1 text-xl font-bold">[Título] · [Institución]</h3>
-        </div>
-      </section>
+      <div class="prose prose-lg max-w-none rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
+        <Content />
+      </div>
     </div>
   </main>
 </Base>

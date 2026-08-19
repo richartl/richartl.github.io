@@ -1,7 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import Base from '@layouts/Base.astro';
 import PostCard from '@components/PostCard.astro';
+import ProjectCard from '@components/ProjectCard.astro';
 import { withBase } from '@lib/paths';
 
 const posts = (await getCollection('blog'))
@@ -9,22 +10,12 @@ const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const projects = [
-  {
-    id: 'repository-security-scanner',
-    tape: 'tape-surf',
-    kicker: 'Build_001',
-    title: 'Repository Security Scanner',
-    description: 'SAST, SCA, DAST, imágenes y manifiestos de Kubernetes en un mismo flujo.',
-  },
-  {
-    id: 'openshift-monitoring',
-    tape: 'tape-tape',
-    kicker: 'Build_002',
-    title: 'OpenShift Monitoring',
-    description: 'Experimentos para automatizar instrumentación y monitoreo de aplicaciones.',
-  },
-];
+const projects = (await getCollection('projects'))
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 2);
+
+const aboutPage = await getEntry('pages', 'sobre-mi');
 ---
 
 <Base
@@ -111,19 +102,7 @@ const projects = [
           </a>
         </div>
         <div class="grid gap-8 lg:grid-cols-2">
-          {projects.map((project) => (
-            <a
-              href={`${withBase('/proyectos/')}#${project.id}`}
-              class="flex flex-col gap-3 rounded-lg border border-ink/15 bg-surface p-6 no-underline transition-colors hover:border-ink md:p-8"
-            >
-              <span class={`tape w-fit ${project.tape}`}>{project.kicker}</span>
-              <h3 class="serif text-3xl font-bold leading-tight md:text-4xl">{project.title}</h3>
-              <p class="text-ink/80">{project.description}</p>
-              <span class="mt-auto w-fit font-bold text-surf underline decoration-2 underline-offset-4">
-                Ver proyecto →
-              </span>
-            </a>
-          ))}
+          {projects.map((project) => <ProjectCard project={project} />)}
         </div>
       </div>
     </section>
@@ -133,13 +112,12 @@ const projects = [
       <div class="mx-auto max-w-7xl">
         <div class="grid gap-4 lg:grid-cols-3">
           <div>
-            <span class="tape tape-flare">About</span>
-            <h2 class="serif mt-4 text-4xl font-black tracking-tight">Ricardo Pérez</h2>
+            <span class={`tape ${aboutPage.data.kickerColor}`}>{aboutPage.data.kicker}</span>
+            <h2 class="serif mt-4 text-4xl font-black tracking-tight">{aboutPage.data.title}</h2>
           </div>
           <div class="lg:col-span-2">
             <p class="serif text-2xl leading-snug text-ink/90 md:text-3xl">
-              Trabajo con infraestructura, software y plataformas. Este sitio es donde documento lo que aprendo,
-              lo que construyo y las dudas que me van apareciendo en el camino.
+              {aboutPage.data.description}
             </p>
             <a
               href={withBase('/sobre-mi/')}
