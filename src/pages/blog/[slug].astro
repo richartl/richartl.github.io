@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '@layouts/Base.astro';
+import { withBase } from '@lib/paths';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((post) => !post.data.draft);
@@ -20,11 +21,32 @@ const date = post.data.pubDate.toLocaleDateString('es-MX', {
 });
 
 const tapeStyles = ['tape-surf', 'tape-tape', 'tape-flare tape-r'];
+
+// Todas las notas publicadas, mismo orden que /blog/ (más reciente primero).
+// De ahí sale "anterior/siguiente" y las relacionadas.
+const allPosts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const currentIndex = allPosts.findIndex((p) => p.id === post.id);
+const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+// Relacionadas: primero por tags en común, de relleno las más recientes.
+const related = allPosts
+  .filter((p) => p.id !== post.id)
+  .map((p) => ({
+    entry: p,
+    shared: p.data.tags.filter((tag: string) => post.data.tags.includes(tag)).length,
+  }))
+  .sort((a, b) => b.shared - a.shared || b.entry.data.pubDate.valueOf() - a.entry.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map((r) => r.entry);
 ---
 
 <Base title={post.data.title} description={post.data.description}>
   <main class="min-h-screen p-5 md:p-8">
-    <article class="mx-auto max-w-5xl">
+    <article class="mx-auto max-w-6xl">
       <header class="rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
         <div class="mb-5 flex flex-wrap gap-2">
           {post.data.tags.map((tag: string, i: number) => (
@@ -38,9 +60,54 @@ const tapeStyles = ['tape-surf', 'tape-tape', 'tape-flare tape-r'];
         <p class="mt-5 max-w-3xl text-lg text-ink/80 md:text-xl">{post.data.description}</p>
       </header>
 
-      <div class="prose prose-lg mt-10 max-w-none rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
-        <Content />
+      <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_300px] lg:items-start">
+        <div class="prose prose-lg md:prose-xl mx-auto rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
+          <Content />
+        </div>
+
+        {related.length > 0 && (
+          <aside class="rounded-lg border border-ink/15 bg-surface p-6 lg:sticky lg:top-8">
+            <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">Te podría interesar</p>
+            <ul class="mt-4 space-y-4">
+              {related.map((r) => (
+                <li class="border-t border-ink/10 pt-4 first:border-t-0 first:pt-0">
+                  <a class="group block no-underline" href={withBase(`/blog/${r.id}/`)}>
+                    <p class="mono text-[11px] font-bold uppercase tracking-wide text-ink/50">
+                      {r.data.pubDate.toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: '2-digit' })}
+                    </p>
+                    <p class="serif mt-1 text-lg font-bold leading-snug transition-colors group-hover:text-surf">
+                      {r.data.title}
+                    </p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
       </div>
+
+      {(prevPost || nextPost) && (
+        <nav class="mt-8 grid gap-4 sm:grid-cols-2" aria-label="Navegación entre notas">
+          {prevPost ? (
+            <a
+              href={withBase(`/blog/${prevPost.id}/`)}
+              class="rounded-lg border border-ink/15 bg-surface p-5 no-underline transition-colors hover:border-ink"
+            >
+              <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">← Anterior</p>
+              <p class="serif mt-1 text-lg font-bold leading-snug">{prevPost.data.title}</p>
+            </a>
+          ) : <span />}
+          {nextPost ? (
+            <a
+              href={withBase(`/blog/${nextPost.id}/`)}
+              class="rounded-lg border border-ink/15 bg-surface p-5 text-right no-underline transition-colors hover:border-ink sm:col-start-2"
+            >
+              <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">Siguiente →</p>
+              <p class="serif mt-1 text-lg font-bold leading-snug">{nextPost.data.title}</p>
+            </a>
+          ) : <span />}
+        </nav>
+      )}
     </article>
   </main>
 </Base>

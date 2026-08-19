@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '@layouts/Base.astro';
 import PageHeader from '@components/PageHeader.astro';
-import ProjectCard from '@components/ProjectCard.astro';
+import ProjectRow from '@components/ProjectRow.astro';
 
 const projects = (await getCollection('projects'))
   .filter((project) => !project.data.draft)
@@ -11,16 +11,16 @@ const projects = (await getCollection('projects'))
 
 <Base title="Proyectos" description="Proyectos personales de Ricardo Pérez.">
   <main class="min-h-screen p-5 md:p-8">
-    <div class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-4xl">
       <PageHeader
         kicker="Build"
-        kickerTape="tape-tape"
+        kickerTape="tape-flare"
         title="Proyectos"
         subtitle="Cosas que construyo para aprender, romper y volver a intentar."
       />
 
-      <div class="grid gap-8 lg:grid-cols-2">
-        {projects.map((project) => <ProjectCard project={project} />)}
+      <div class="border-t border-ink/15">
+        {projects.map((project, i) => <ProjectRow project={project} index={i} />)}
       </div>
     </div>
   </main>
