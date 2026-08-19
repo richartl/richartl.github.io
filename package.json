@@ -11,7 +11,7 @@
     "astro": "astro",
     "cms": "decap-server",
     "dev:cms": "concurrently -n astro,cms \"pnpm dev\" \"pnpm cms\"",
-    "tina:dev": "tinacms dev -c \"astro dev\""
+    "tina:dev": "tinacms dev -c \"astro dev --port 4323\""
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.3",

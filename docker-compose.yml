@@ -21,16 +21,14 @@ services:
       pnpm exec concurrently -n astro,cms 'pnpm exec astro dev --host 0.0.0.0' 'pnpm exec decap-server'
       "
 
-  # Alternativa a `blog` para probar TinaCMS en vez de Decap. No se levanta con
-  # `docker compose up` a secas (usa el profile "tina"): `docker compose --profile tina up blog-tina`.
-  # Usa los mismos puertos que `blog`, así que no los corras juntos.
+  # Servicio aparte para probar TinaCMS, corre al mismo tiempo que `blog` (Decap):
+  # usa el puerto 4323 para Astro y 4001 para el GraphQL de Tina, así no chocan.
   blog-tina:
-    profiles: ["tina"]
     image: node:24-alpine
     container_name: ricardo-blog-tina
     working_dir: /app
     ports:
-      - "4321:4321"
+      - "4323:4323"
       - "4001:4001"
     volumes:
       - .:/app
@@ -44,7 +42,7 @@ services:
       sh -c "
       corepack enable &&
       pnpm install &&
-      pnpm exec tinacms dev -c 'astro dev --host 0.0.0.0'
+      pnpm exec tinacms dev -c 'astro dev --host 0.0.0.0 --port 4323'
       "
 
 volumes:

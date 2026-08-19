@@ -182,20 +182,23 @@ pnpm install
 pnpm tina:dev
 ```
 
-Con Docker (levanta un contenedor aparte del de Decap — no los corras juntos, usan el mismo puerto 4321):
+Con Docker, como servicio aparte de `blog` (el de Decap) — corren al mismo tiempo, cada uno en
+su puerto:
 
 ```bash
-docker compose --profile tina up blog-tina
+docker compose up blog-tina
+# o los dos juntos:
+docker compose up
 ```
 
 Abre:
 
 ```text
-http://localhost:4321/tina-admin/index.html
+http://localhost:4323/tina-admin/index.html
 ```
 
-(el puerto puede cambiar si el 4321 ya está en uso — el comando lo imprime en la terminal).
-El esquema vive en `tina/config.ts` y refleja las mismas tres colecciones que Decap (Blog,
+(el sitio de Tina corre en el puerto 4323, distinto al 4321 de Decap, para poder tener ambos
+paneles abiertos a la vez). El esquema vive en `tina/config.ts` y refleja las mismas tres colecciones que Decap (Blog,
 Páginas, Proyectos) sobre los mismos archivos `.mdx` de `src/data/`. Los archivos que genera Tina
 al arrancar (`tina/__generated__/`, `public/tina-admin/`) están en `.gitignore`.
 
