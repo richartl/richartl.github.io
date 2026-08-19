@@ -171,40 +171,6 @@ El archivo `public/admin/config.yml` define esas colecciones — si agregas un c
 esquema de contenido (`src/content.config.ts` o donde esté definido), agrégalo también ahí para
 que el panel lo muestre.
 
-## Probar TinaCMS (alternativa a Decap, en evaluación)
-
-Hay una segunda configuración de CMS, [TinaCMS](https://tina.io), agregada solo para comparar
-con Decap — no reemplaza nada todavía, ambas conviven. También corre 100% en local (sin
-TinaCloud, sin login) usando el backend de filesystem del propio CLI.
-
-```bash
-pnpm install
-pnpm tina:dev
-```
-
-Con Docker, como servicio aparte de `blog` (el de Decap) — corren al mismo tiempo, cada uno en
-su puerto:
-
-```bash
-docker compose up blog-tina
-# o los dos juntos:
-docker compose up
-```
-
-Abre:
-
-```text
-http://localhost:4323/tina-admin/index.html
-```
-
-(el sitio de Tina corre en el puerto 4323, distinto al 4321 de Decap, para poder tener ambos
-paneles abiertos a la vez). El esquema vive en `tina/config.ts` y refleja las mismas tres colecciones que Decap (Blog,
-Páginas, Proyectos) sobre los mismos archivos `.mdx` de `src/data/`. Los archivos que genera Tina
-al arrancar (`tina/__generated__/`, `public/tina-admin/`) están en `.gitignore`.
-
-Si te quedas con Tina, hay que decidir después qué hacer con Decap (`public/admin/`,
-`decap-server`) para no mantener dos paneles.
-
 ## Dominio
 
 Antes de publicar cambia `site` y `base` en `astro.config.ts` por tu dominio/ruta real.
