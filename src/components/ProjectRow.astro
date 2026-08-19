@@ -1,0 +1,24 @@
+---
+import { withBase } from '@lib/paths';
+
+const { project, index } = Astro.props;
+const projectHref = withBase(`/proyectos/${project.id}/`);
+const num = String(index + 1).padStart(2, '0');
+---
+
+<a
+  href={projectHref}
+  class="group flex flex-col gap-4 border-b border-ink/15 py-8 no-underline first:pt-0 last:border-b-0 sm:flex-row sm:items-start sm:gap-8"
+>
+  <span class="serif shrink-0 text-5xl font-black text-flare/40 sm:text-6xl">{num}</span>
+  <div class="flex-1">
+    <span class={`tape w-fit ${project.data.kickerColor}`}>{project.data.kicker}</span>
+    <h2 class="serif mt-3 text-2xl font-bold leading-tight transition-colors group-hover:text-flare sm:text-3xl">
+      {project.data.title}
+    </h2>
+    <p class="mt-2 text-ink/80">{project.data.description}</p>
+    <span class="mt-3 inline-block w-fit font-bold text-flare underline decoration-2 underline-offset-4">
+      Ver proyecto →
+    </span>
+  </div>
+</a>

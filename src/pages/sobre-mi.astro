@@ -1,0 +1,25 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '@layouts/Base.astro';
+import PageHeader from '@components/PageHeader.astro';
+
+const page = await getEntry('pages', 'sobre-mi');
+const { Content } = await render(page);
+---
+
+<Base title={page.data.title} description={page.data.description}>
+  <main class="min-h-screen p-5 md:p-8">
+    <div class="mx-auto max-w-4xl">
+      <PageHeader
+        kicker={page.data.kicker}
+        kickerTape={page.data.kickerColor}
+        title={page.data.title}
+        subtitle={page.data.description}
+      />
+
+      <div class="prose prose-lg md:prose-xl mx-auto rounded-lg border border-ink/15 bg-surface p-6 md:p-10">
+        <Content />
+      </div>
+    </div>
+  </main>
+</Base>

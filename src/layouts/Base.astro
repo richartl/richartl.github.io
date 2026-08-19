@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { withBase } from '@lib/paths';
 
 interface Props {
   title: string;
@@ -10,6 +11,41 @@ const {
   title,
   description = 'Notas sobre sistemas, software, música y cosas que construyo.'
 } = Astro.props;
+
+// Menú de arriba del sitio. No sale de ningún archivo Markdown — es la única parte
+// de la navegación que se edita aquí, a mano. Para agregar/quitar/renombrar un link:
+//   - href: la ruta del sitio (sin el dominio, con / al inicio y al final).
+//   - label: el texto que se ve en el menú.
+//   - accent: color del subrayado al pasar el mouse o cuando es la página activa.
+//             Solo puede ser 'surf', 'tape' o 'flare' (ver navStyles debajo).
+const navLinks = [
+  { href: '/', label: 'Inicio', accent: 'surf' },
+  { href: '/blog/', label: 'Notas', accent: 'tape' },
+  { href: '/proyectos/', label: 'Proyectos', accent: 'flare' },
+  { href: '/sobre-mi/', label: 'Sobre mí', accent: 'surf' },
+  { href: '/cv/', label: 'CV', accent: 'tape' },
+];
+
+const navStyles: Record<string, { active: string; hover: string }> = {
+  surf: { active: 'text-surf decoration-surf', hover: 'hover:text-surf hover:decoration-surf' },
+  tape: { active: 'text-tape decoration-tape', hover: 'hover:text-tape hover:decoration-tape' },
+  flare: { active: 'text-flare decoration-flare', hover: 'hover:text-flare hover:decoration-flare' },
+};
+
+// Contacto / redes — se ven en el footer de todas las páginas.
+const socialLinks = [
+  { label: 'Email', href: 'mailto:me@ricardoperezcandelas.com' },
+  { label: 'GitHub', href: 'https://github.com/richartl' },
+  { label: 'Twitter', href: 'https://twitter.com/elrichartl' },
+  { label: 'Medium', href: 'https://medium.com/@ricardo_pcan' },
+  { label: 'Instagram', href: 'https://www.instagram.com/elrichartl/' },
+];
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => {
+  const resolved = withBase(href);
+  return href === '/' ? pathname === resolved : pathname.startsWith(resolved);
+};
 ---
 
 <!doctype html>
@@ -18,30 +54,67 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" />
+    <link rel="icon" href={withBase('/favicon.svg')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>{title} · Ricardo Pérez</title>
   </head>
   <body>
-    <header class="border-b-[3px] border-black bg-white">
+    <header class="border-b-4 border-tape bg-ink text-paper">
       <div class="mx-auto flex max-w-7xl flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
-        <a href="/" class="text-3xl font-black uppercase tracking-[-0.05em] no-underline">
+        <a href={withBase('/')} class="serif text-2xl font-black tracking-tight text-paper no-underline">
           Ricardo Pérez
         </a>
-        <nav class="flex flex-wrap gap-2 text-sm font-black uppercase">
-          <a class="border-2 border-black bg-[#fde047] px-3 py-2 hover:translate-x-[2px] hover:translate-y-[2px]" href="/">Inicio</a>
-          <a class="border-2 border-black bg-[#86efac] px-3 py-2 hover:translate-x-[2px] hover:translate-y-[2px]" href="/blog/">Notas</a>
-          <a class="border-2 border-black bg-[#93c5fd] px-3 py-2 hover:translate-x-[2px] hover:translate-y-[2px]" href="/#proyectos">Proyectos</a>
-          <a class="border-2 border-black bg-[#d8b4fe] px-3 py-2 hover:translate-x-[2px] hover:translate-y-[2px]" href="/#sobre-mi">Sobre mí</a>
+        <nav class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm font-bold uppercase tracking-wide">
+          {navLinks.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <a
+                class={`no-underline decoration-2 underline-offset-4 transition-colors hover:underline ${
+                  active
+                    ? `underline ${navStyles[link.accent].active}`
+                    : `text-paper/70 ${navStyles[link.accent].hover}`
+                }`}
+                href={withBase(link.href)}
+                aria-current={active ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
       </div>
     </header>
 
     <slot />
 
-    <footer class="border-t-[3px] border-black bg-white p-4">
-      <div class="mx-auto flex max-w-7xl flex-col justify-between gap-2 text-sm font-bold uppercase md:flex-row">
-        <span>Ricardo Pérez / México</span>
-        <span>Notas, lab y cosas que construyo</span>
+    <footer class="border-t-4 border-surf bg-surface p-5 md:p-8">
+      <div class="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p class="serif text-xl font-bold">Ricardo Pérez</p>
+          <p class="mono mt-1 text-xs uppercase tracking-wide text-ink/60">
+            Notas, lab y cosas que construyo · México
+          </p>
+        </div>
+        <div>
+          <p class="mono text-xs font-bold uppercase tracking-wide text-ink/60">Contacto</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {socialLinks.map((social) => (
+              <a
+                href={social.href}
+                class="tape tape-paper"
+                target={social.href.startsWith('http') ? '_blank' : undefined}
+                rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                {social.label}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </footer>
   </body>
