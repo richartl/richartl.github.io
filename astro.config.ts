@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://richartl.github.io',
-  base: '/personal-blog',
+  base: '/',
   trailingSlash: 'ignore',
   integrations: [sitemap(), mdx()],
   vite: {
