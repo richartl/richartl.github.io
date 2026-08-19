@@ -9,7 +9,7 @@ backend:
 local_backend: true
 
 media_folder: "public/uploads"
-public_folder: "/personal-blog/uploads"
+public_folder: "/uploads"
 
 collections:
   - name: "blog"
@@ -17,7 +17,7 @@ collections:
     folder: "src/data/blog"
     create: true
     slug: "{{slug}}"
-    extension: "md"
+    extension: "mdx"
     identifier_field: "title"
     fields:
       - { label: "Título", name: "title", widget: "string" }
@@ -33,7 +33,7 @@ collections:
     folder: "src/data/pages"
     create: true
     slug: "{{slug}}"
-    extension: "md"
+    extension: "mdx"
     identifier_field: "title"
     fields:
       - { label: "Título", name: "title", widget: "string" }
@@ -51,7 +51,7 @@ collections:
     folder: "src/data/projects"
     create: true
     slug: "{{slug}}"
-    extension: "md"
+    extension: "mdx"
     identifier_field: "title"
     fields:
       - { label: "Título", name: "title", widget: "string" }
