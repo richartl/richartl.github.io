@@ -155,3 +155,100 @@ a {
 .prose details p {
   margin: 0.5rem 0;
 }
+
+/*
+ * Imágenes tipo "foto pegada con cinta": el <p> que arranca con una imagen
+ * (así es como el markdown renderiza `![alt](src)` en su propia línea) se
+ * convierte en el marco. Alterna la inclinación par/impar para que no se vean
+ * todas iguales, y endereza la foto al pasar el mouse.
+ *
+ * Para agregar un pie de foto escribe una línea en cursiva justo debajo,
+ * SIN línea en blanco entre medio:
+ *
+ *   ![alt](/ruta/imagen.jpg)
+ *   *Pie de foto*
+ *
+ * (con línea en blanco entre medio también funciona, queda como párrafo aparte)
+ */
+.prose p:has(> img:first-child) {
+  position: relative;
+  display: flow-root;
+  margin: 2.75rem 0;
+  isolation: isolate;
+}
+
+.prose p:has(> img:first-child)::before {
+  content: '';
+  position: absolute;
+  top: -0.65rem;
+  left: 50%;
+  width: 3.75rem;
+  height: 1.15rem;
+  background: var(--color-tape);
+  opacity: 0.9;
+  transform: translateX(-50%) rotate(-3deg);
+  box-shadow: 1px 2px 4px rgb(22 21 19 / 0.25);
+  z-index: 2;
+}
+
+.prose p:has(> img:first-child) > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border: 3px solid var(--color-ink);
+  box-shadow: 6px 6px 0 var(--color-ink);
+  background: var(--color-surface);
+  padding: 0.5rem 0.5rem 2.25rem;
+  transform: rotate(-1.25deg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prose p:has(> img:first-child):nth-of-type(even) > img {
+  transform: rotate(1.25deg);
+}
+
+.prose p:has(> img:first-child) > img:hover {
+  transform: rotate(0deg);
+  box-shadow: 8px 8px 0 var(--color-flare);
+}
+
+/* Pie de foto: cursiva pegada a la imagen (misma línea) o en su propio párrafo */
+.prose p:has(> img:first-child) > em:last-child,
+.prose p:has(> img:only-child) + p:has(> em:only-child) {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: -1.75rem;
+  padding: 0 1rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: color-mix(in srgb, var(--color-ink) 60%, transparent);
+}
+
+.prose p:has(> img:only-child) + p:has(> em:only-child) {
+  margin-top: -2.5rem;
+}
+
+@media (max-width: 640px) {
+  .prose p:has(> img:first-child) > img {
+    border-width: 2px;
+    box-shadow: 4px 4px 0 var(--color-ink);
+    padding: 0.35rem 0.35rem 1.85rem;
+  }
+
+  .prose p:has(> img:first-child) > em:last-child,
+  .prose p:has(> img:only-child) + p:has(> em:only-child) {
+    margin-top: -1.5rem;
+    font-size: 0.7rem;
+  }
+
+  .prose p:has(> img:first-child) > img:hover {
+    box-shadow: 5px 5px 0 var(--color-flare);
+  }
+}
