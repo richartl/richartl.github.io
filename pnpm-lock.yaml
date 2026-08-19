@@ -23,9 +23,6 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.13
         version: 4.3.3(vite@7.3.6(@types/node@24.13.3)(jiti@1.21.7)(lightningcss@1.32.0)(yaml@2.9.0))
-      '@tinacms/cli':
-        specifier: ^2.6.0
-        version: 2.6.0(@codemirror/language@6.0.0)(@types/node@24.13.3)(abstract-level@1.0.4)(immer@10.2.0)(jiti@1.21.7)(lightningcss@1.32.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.62.4)(rxjs@7.8.2)(scheduler@0.27.0)(slate-dom@0.114.0(slate@0.114.0))(slate@0.114.0)(use-sync-external-store@1.6.0(react@18.3.1))(yaml@2.9.0)
       astro:
         specifier: ^6.1.8
         version: 6.4.8(@types/node@24.13.3)(jiti@1.21.7)(lightningcss@1.32.0)(rollup@4.62.4)(yaml@2.9.0)
@@ -36,6 +33,9 @@ importers:
         specifier: ^3.12.0
         version: 3.12.0(@types/node@24.13.3)(abstract-level@1.0.4)(immer@10.2.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.27.0)(slate-dom@0.114.0(slate@0.114.0))(slate@0.114.0)(typescript@5.9.3)(use-sync-external-store@1.6.0(react@18.3.1))
     devDependencies:
+      '@tinacms/cli':
+        specifier: ^2.6.0
+        version: 2.6.0(@codemirror/language@6.0.0)(@types/node@24.13.3)(abstract-level@1.0.4)(immer@10.2.0)(jiti@1.21.7)(lightningcss@1.32.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.62.4)(rxjs@7.8.2)(scheduler@0.27.0)(slate-dom@0.114.0(slate@0.114.0))(slate@0.114.0)(use-sync-external-store@1.6.0(react@18.3.1))(yaml@2.9.0)
       concurrently:
         specifier: ^9.1.2
         version: 9.2.4
