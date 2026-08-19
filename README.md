@@ -36,6 +36,12 @@ docker compose down -v
 Todo el contenido del sitio (notas, páginas y proyectos) son archivos `.md` en `src/data/`.
 No hace falta tocar componentes `.astro` ni saber Tailwind para agregar o editar contenido.
 
+También podés usar `.mdx` en cualquiera de las tres colecciones (`src/data/blog`,
+`src/data/pages`, `src/data/projects`) cuando necesites algo que Markdown puro no puede: HTML/JSX
+embebido, `export const` con JS, o importar y usar un componente `.astro`/`.tsx` dentro del post.
+El front matter funciona igual. El panel de Decap CMS solo lista/crea archivos `.md` (no soporta
+mezclar extensiones en una colección), así que un `.mdx` se escribe a mano.
+
 ### Agregar una nueva nota
 
 Crea un archivo Markdown dentro de:
