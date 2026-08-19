@@ -1,0 +1,30 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  caption?: string;
+  rotate?: number;
+}
+
+const {
+  src,
+  alt = "",
+  caption = "",
+  rotate = 1,
+} = Astro.props;
+---
+
+<figure
+  class="fanzine-photo-tape"
+  style={`--rotate: ${rotate}deg`}
+>
+  <span class="fanzine-tape"></span>
+
+  <img src={src} alt={alt} loading="lazy" />
+
+  {caption && (
+    <figcaption>
+      {caption}
+    </figcaption>
+  )}
+</figure>

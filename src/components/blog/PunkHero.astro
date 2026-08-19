@@ -1,0 +1,21 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  text: string;
+}
+
+const {
+  src,
+  alt = "",
+  text,
+} = Astro.props;
+---
+
+<figure class="fanzine-punk-hero">
+  <img src={src} alt={alt} loading="lazy" />
+
+  <div class="fanzine-punk-hero-text">
+    {text}
+  </div>
+</figure>

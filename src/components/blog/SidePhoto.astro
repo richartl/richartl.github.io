@@ -1,0 +1,27 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  caption?: string;
+  side?: "left" | "right";
+  width?: number;
+  rotate?: number;
+}
+
+const {
+  src,
+  alt = "",
+  caption = "",
+  side = "left",
+  width = 220,
+  rotate = -2,
+} = Astro.props;
+---
+
+<figure
+  class={`fz-side-photo fz-side-${side}`}
+  style={`--width:${width}px; --rotate:${rotate}deg`}
+>
+  <img src={src} alt={alt} loading="lazy" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

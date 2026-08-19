@@ -1,0 +1,24 @@
+---
+interface ImageItem {
+  src: string;
+  alt?: string;
+}
+
+interface Props {
+  images: ImageItem[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="fz-filmstrip">
+  {images.map(image => (
+    <div class="fz-film-frame">
+      <img
+        src={image.src}
+        alt={image.alt ?? ""}
+        loading="lazy"
+      />
+    </div>
+  ))}
+</div>

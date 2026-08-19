@@ -1,0 +1,26 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  caption?: string;
+  rotate?: number;
+}
+
+const {
+  src,
+  alt = "",
+  caption = "",
+  rotate = 2,
+} = Astro.props;
+---
+
+<figure
+  class="fz-xerox-cutout"
+  style={`--rotate:${rotate}deg`}
+>
+  <img src={src} alt={alt} loading="lazy" />
+
+  {caption && (
+    <figcaption>{caption}</figcaption>
+  )}
+</figure>
