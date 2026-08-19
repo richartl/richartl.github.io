@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const blogCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.md', base: './src/data/blog' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/blog' }),
   schema: z.object({
     title: z.string(),
     author: z.string(),
@@ -22,7 +22,7 @@ const tapeColor = z
 // Páginas sueltas fuera del blog: Sobre mí, CV, etc. Un archivo .md = una página,
 // servida en /<nombre-del-archivo>/ (ver src/pages/sobre-mi.astro y src/pages/cv.astro).
 const pagesCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.md', base: './src/data/pages' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/pages' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -34,7 +34,7 @@ const pagesCollection = defineCollection({
 // Proyectos personales. Un archivo .md = un proyecto, listado en /proyectos/ y con
 // su propia página en /proyectos/<nombre-del-archivo>/.
 const projectsCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.md', base: './src/data/projects' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/projects' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),

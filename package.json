@@ -8,14 +8,21 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "cms": "decap-server",
+    "dev:cms": "concurrently -n astro,cms \"pnpm dev\" \"pnpm cms\""
   },
   "dependencies": {
+    "@astrojs/mdx": "^6.0.3",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.13",
     "astro": "^6.1.8",
     "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "decap-server": "^3.2.6"
   }
 }

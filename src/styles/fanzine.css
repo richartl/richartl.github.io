@@ -1,0 +1,606 @@
+/* =========================================
+   BASE
+========================================= */
+
+.fanzine-polaroid,
+.fanzine-photo-tape,
+.fanzine-xerox,
+.fanzine-torn,
+.fanzine-photo-grid-item {
+  margin: 3rem auto;
+  position: relative;
+  transform: rotate(var(--rotate, 0deg));
+}
+
+.fanzine-polaroid img,
+.fanzine-photo-tape img,
+.fanzine-xerox img,
+.fanzine-torn img,
+.fanzine-photo-grid-item img,
+.fanzine-punk-hero img {
+  display: block;
+  width: 100%;
+}
+
+
+/* =========================================
+   POLAROID
+========================================= */
+
+.fanzine-polaroid {
+  background: #f3f0e7;
+  padding: 12px 12px 38px;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
+  color: #111;
+}
+
+.fanzine-polaroid img {
+  filter: saturate(0.85) contrast(1.05);
+}
+
+.fanzine-polaroid figcaption {
+  margin-top: 12px;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.fanzine-size-small {
+  max-width: 350px;
+}
+
+.fanzine-size-medium {
+  max-width: 600px;
+}
+
+.fanzine-size-large {
+  max-width: 900px;
+}
+
+
+/* =========================================
+   PHOTO TAPE
+========================================= */
+
+.fanzine-photo-tape {
+  max-width: 720px;
+}
+
+.fanzine-photo-tape img {
+  border: 4px solid #111;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.8);
+}
+
+.fanzine-photo-tape figcaption {
+  margin-top: 12px;
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.fanzine-tape {
+  position: absolute;
+  width: 120px;
+  height: 34px;
+
+  top: -18px;
+  left: 50%;
+
+  transform:
+    translateX(-50%)
+    rotate(-4deg);
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(220, 210, 170, 0.9),
+      rgba(220, 210, 170, 0.9) 5px,
+      rgba(205, 195, 150, 0.9) 6px
+    );
+
+  opacity: 0.9;
+  z-index: 2;
+}
+
+
+/* =========================================
+   XEROX
+========================================= */
+
+.fanzine-xerox {
+  max-width: 800px;
+}
+
+.fanzine-xerox-image {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 6px solid #111;
+}
+
+.fanzine-xerox img {
+  filter:
+    grayscale(1)
+    contrast(1.7)
+    brightness(1.1);
+}
+
+.fanzine-xerox-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    repeating-radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 0, 0, 0.15) 0,
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 2px,
+      transparent 5px
+    );
+
+  mix-blend-mode: multiply;
+  opacity: 0.35;
+}
+
+.fanzine-xerox figcaption {
+  display: inline-block;
+
+  background: #111;
+  color: #fff;
+
+  padding: 6px 12px;
+
+  margin-top: -4px;
+
+  font-family: "Arial Black", sans-serif;
+  font-size: 1rem;
+
+  text-transform: uppercase;
+
+  transform: rotate(-1deg);
+}
+
+
+/* =========================================
+   TORN IMAGE
+========================================= */
+
+.fanzine-torn {
+  max-width: 750px;
+}
+
+.fanzine-torn img {
+  clip-path: polygon(
+    2% 4%,
+    14% 1%,
+    24% 5%,
+    38% 2%,
+    52% 5%,
+    64% 1%,
+    78% 4%,
+    94% 1%,
+    100% 8%,
+    97% 25%,
+    100% 42%,
+    96% 60%,
+    100% 80%,
+    94% 100%,
+    80% 96%,
+    62% 100%,
+    48% 96%,
+    31% 100%,
+    15% 96%,
+    2% 100%,
+    5% 81%,
+    1% 63%,
+    4% 42%,
+    1% 22%
+  );
+
+  filter: contrast(1.1);
+}
+
+.fanzine-torn figcaption {
+  margin-top: 10px;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+
+/* =========================================
+   PUNK HERO
+========================================= */
+
+.fanzine-punk-hero {
+  position: relative;
+
+  margin: 3rem calc(50% - 50vw);
+
+  width: 100vw;
+
+  overflow: hidden;
+}
+
+.fanzine-punk-hero img {
+  width: 100%;
+  max-height: 650px;
+  object-fit: cover;
+
+  filter:
+    grayscale(0.3)
+    contrast(1.2);
+}
+
+.fanzine-punk-hero::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.08),
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+
+  pointer-events: none;
+}
+
+.fanzine-punk-hero-text {
+  position: absolute;
+
+  left: 7%;
+  bottom: 12%;
+
+  max-width: 85%;
+
+  background: #111;
+  color: #fff;
+
+  padding: 0.2em 0.4em;
+
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size:
+    clamp(2rem, 7vw, 6rem);
+
+  line-height: 0.9;
+
+  text-transform: uppercase;
+
+  transform: rotate(-2deg);
+
+  box-decoration-break: clone;
+}
+
+
+/* =========================================
+   PHOTO GRID
+========================================= */
+
+.fanzine-photo-grid {
+  margin: 4rem 0;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 1.5rem;
+}
+
+.fanzine-photo-grid-item {
+  margin: 0;
+
+  padding: 8px 8px 28px;
+
+  background: #f4f0e7;
+
+  box-shadow:
+    6px 6px 0 rgba(0, 0, 0, 0.8);
+
+  color: #111;
+
+  transition:
+    transform 0.15s ease;
+}
+
+.fanzine-photo-grid-item:hover {
+  transform:
+    rotate(0deg)
+    scale(1.03);
+
+  z-index: 2;
+}
+
+.fanzine-photo-grid-item figcaption {
+  margin-top: 8px;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: 0.8rem;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+  .fanzine-photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fanzine-punk-hero {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+  }
+
+  .fanzine-punk-hero-text {
+    font-size:
+      clamp(2rem, 12vw, 4rem);
+  }
+
+  .fanzine-polaroid,
+  .fanzine-photo-tape,
+  .fanzine-xerox,
+  .fanzine-torn {
+    transform:
+      rotate(calc(var(--rotate) * 0.5));
+  }
+}
+
+.fz-side-photo {
+  width: min(var(--width), 45%);
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+  background: #f4f0e7;
+  padding: 6px 6px 20px;
+  box-shadow: 5px 5px 0 #111;
+  transform: rotate(var(--rotate));
+  color: #111;
+}
+
+.fz-side-left {
+  float: left;
+  margin-right: 1.5rem;
+}
+
+.fz-side-right {
+  float: right;
+  margin-left: 1.5rem;
+}
+
+.fz-side-photo img {
+  display: block;
+  width: 100%;
+}
+
+.fz-side-photo figcaption {
+  margin-top: 7px;
+  font-family: "Courier New", monospace;
+  font-size: .72rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .fz-side-photo {
+    float: none;
+    width: 70%;
+    margin: 1.5rem auto;
+  }
+}
+
+.fz-mini-polaroid {
+  width: 180px;
+  max-width: 65%;
+  margin: 2rem auto;
+
+  padding: 7px 7px 24px;
+
+  background: #f2eee2;
+  color: #111;
+
+  box-shadow: 5px 6px 0 rgba(0,0,0,.8);
+
+  transform: rotate(var(--rotate));
+}
+
+.fz-mini-polaroid img {
+  display: block;
+  width: 100%;
+}
+
+.fz-mini-polaroid figcaption {
+  margin-top: 7px;
+
+  font-family: "Courier New", monospace;
+  font-size: .7rem;
+
+  text-align: center;
+}
+
+.fz-sticker {
+  width: 150px;
+  margin: 2rem auto;
+
+  padding: 6px;
+
+  background: white;
+
+  filter:
+    drop-shadow(4px 5px 0 rgba(0,0,0,.8));
+
+  transform: rotate(var(--rotate));
+}
+
+.fz-sticker img {
+  display: block;
+  width: 100%;
+}
+
+.fz-sticker-square {
+  clip-path: polygon(
+    3% 2%,
+    97% 0,
+    100% 96%,
+    2% 100%
+  );
+}
+
+.fz-sticker-circle {
+  border-radius: 50%;
+}
+
+.fz-sticker-circle img {
+  border-radius: 50%;
+}
+
+.fz-filmstrip {
+  max-width: 600px;
+
+  margin: 3rem auto;
+  padding: 16px 18px;
+
+  display: flex;
+  gap: 8px;
+
+  background: #111;
+
+  transform: rotate(-1deg);
+
+  overflow-x: auto;
+}
+
+.fz-filmstrip::before,
+.fz-filmstrip::after {
+  content: "";
+}
+
+.fz-film-frame {
+  flex: 0 0 130px;
+
+  padding: 4px;
+
+  background: #eee;
+}
+
+.fz-film-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+
+  display: block;
+
+  object-fit: cover;
+
+  filter:
+    grayscale(.5)
+    contrast(1.15);
+}
+
+.fz-xerox-cutout {
+  width: 230px;
+  max-width: 70%;
+
+  margin: 2.5rem auto;
+
+  transform: rotate(var(--rotate));
+
+  color: #111;
+}
+
+.fz-xerox-cutout img {
+  display: block;
+  width: 100%;
+
+  filter:
+    grayscale(1)
+    contrast(1.9)
+    brightness(1.15);
+
+  clip-path: polygon(
+    3% 2%,
+    97% 5%,
+    100% 94%,
+    92% 98%,
+    5% 96%,
+    0 8%
+  );
+}
+
+.fz-xerox-cutout figcaption {
+  display: inline-block;
+
+  margin-top: 5px;
+  padding: 3px 7px;
+
+  background: #111;
+  color: white;
+
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  font-size: .7rem;
+
+  text-transform: uppercase;
+
+  transform: rotate(-2deg);
+}
+
+.fz-double-photo {
+  max-width: 520px;
+
+  margin: 3rem auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+.fz-double-photo > div {
+  padding: 6px;
+
+  background: #f4f0e7;
+
+  box-shadow: 4px 5px 0 #111;
+}
+
+.fz-double-photo > div:first-child {
+  transform: rotate(-3deg);
+}
+
+.fz-double-photo > div:nth-child(2) {
+  transform: rotate(2deg);
+}
+
+.fz-double-photo img {
+  display: block;
+  width: 100%;
+}
+
+.fz-double-photo figcaption {
+  grid-column: 1 / -1;
+
+  margin-top: 10px;
+
+  font-family: "Courier New", monospace;
+  font-size: .75rem;
+
+  text-align: center;
+  text-transform: uppercase;
+}

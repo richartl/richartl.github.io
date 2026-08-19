@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import "../styles/fanzine.css";
 import { withBase } from '@lib/paths';
 
 interface Props {
@@ -21,7 +22,7 @@ const {
 const navLinks = [
   { href: '/', label: 'Inicio', accent: 'surf' },
   { href: '/blog/', label: 'Notas', accent: 'tape' },
-  { href: '/proyectos/', label: 'Proyectos', accent: 'flare' },
+  //{ href: '/proyectos/', label: 'Proyectos', accent: 'flare' },
   { href: '/sobre-mi/', label: 'Sobre mí', accent: 'surf' },
   { href: '/cv/', label: 'CV', accent: 'tape' },
 ];
@@ -36,8 +37,6 @@ const navStyles: Record<string, { active: string; hover: string }> = {
 const socialLinks = [
   { label: 'Email', href: 'mailto:me@ricardoperezcandelas.com' },
   { label: 'GitHub', href: 'https://github.com/richartl' },
-  { label: 'Twitter', href: 'https://twitter.com/elrichartl' },
-  { label: 'Medium', href: 'https://medium.com/@ricardo_pcan' },
   { label: 'Instagram', href: 'https://www.instagram.com/elrichartl/' },
 ];
 

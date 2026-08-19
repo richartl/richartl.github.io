@@ -1,0 +1,239 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  caption?: string;
+  text?: string;
+  height?: number;
+  style?: "clean" | "xerox" | "punk";
+}
+
+const {
+  src,
+  alt = "",
+  caption = "",
+  text = "",
+  height = 420,
+  style = "punk",
+} = Astro.props;
+---
+
+<figure
+  class={`fz-wide-photo fz-wide-photo-${style}`}
+  style={`--height:${height}px`}
+>
+  <div class="fz-wide-photo-image">
+
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+    />
+
+    {text && (
+      <div class="fz-wide-photo-text">
+        <span>{text}</span>
+      </div>
+    )}
+
+  </div>
+
+  {caption && (
+    <figcaption>
+      {caption}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+
+  .fz-wide-photo {
+    width: 100%;
+    margin: 4rem 0;
+    position: relative;
+  }
+
+  .fz-wide-photo-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fz-wide-photo img {
+    display: block;
+
+    width: 100%;
+    height: var(--height);
+
+    object-fit: cover;
+  }
+
+
+  /* =============================
+     CLEAN
+  ============================= */
+
+  .fz-wide-photo-clean img {
+    border-top: 3px solid #111;
+    border-bottom: 3px solid #111;
+  }
+
+
+  /* =============================
+     XEROX
+  ============================= */
+
+  .fz-wide-photo-xerox img {
+    filter:
+      grayscale(1)
+      contrast(1.7)
+      brightness(1.05);
+  }
+
+  .fz-wide-photo-xerox .fz-wide-photo-image {
+    border-top: 5px solid #111;
+    border-bottom: 5px solid #111;
+  }
+
+
+  /* =============================
+     PUNK
+  ============================= */
+
+  .fz-wide-photo-punk img {
+    filter:
+      grayscale(.25)
+      contrast(1.25)
+      saturate(.85);
+  }
+
+  .fz-wide-photo-punk .fz-wide-photo-image {
+    clip-path: polygon(
+      0 2%,
+      12% 0,
+      25% 2%,
+      40% 0,
+      55% 2%,
+      70% 0,
+      85% 2%,
+      100% 0,
+
+      100% 97%,
+      88% 100%,
+      73% 98%,
+      58% 100%,
+      42% 98%,
+      27% 100%,
+      12% 98%,
+      0 100%
+    );
+  }
+
+
+  /* textura */
+
+  .fz-wide-photo-punk .fz-wide-photo-image::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,.08),
+        rgba(0,0,0,.08) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+
+    mix-blend-mode: multiply;
+  }
+
+
+  /* =============================
+     TEXTO SOBRE FOTO
+  ============================= */
+
+  .fz-wide-photo-text {
+    position: absolute;
+
+    left: 5%;
+    bottom: 12%;
+
+    max-width: 80%;
+
+    z-index: 2;
+  }
+
+  .fz-wide-photo-text span {
+    background: #111;
+    color: white;
+
+    padding:
+      .15em
+      .35em;
+
+    font-family:
+      Impact,
+      "Arial Black",
+      sans-serif;
+
+    font-size:
+      clamp(1.8rem, 5vw, 4rem);
+
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+
+    transform: rotate(-1deg);
+  }
+
+
+  /* =============================
+     CAPTION
+  ============================= */
+
+  .fz-wide-photo figcaption {
+    margin-top: 8px;
+
+    font-family:
+      "Courier New",
+      monospace;
+
+    font-size: .7rem;
+
+    text-transform: uppercase;
+
+    opacity: .8;
+  }
+
+
+  /* =============================
+     MOBILE
+  ============================= */
+
+  @media (max-width: 650px) {
+
+    .fz-wide-photo {
+      margin: 3rem 0;
+    }
+
+    .fz-wide-photo img {
+      height: min(var(--height), 300px);
+    }
+
+    .fz-wide-photo-text {
+      left: 5%;
+      bottom: 10%;
+
+      max-width: 90%;
+    }
+
+  }
+
+</style>

@@ -1,0 +1,31 @@
+---
+interface Props {
+  left: string;
+  right: string;
+  leftAlt?: string;
+  rightAlt?: string;
+  caption?: string;
+}
+
+const {
+  left,
+  right,
+  leftAlt = "",
+  rightAlt = "",
+  caption = "",
+} = Astro.props;
+---
+
+<figure class="fz-double-photo">
+
+  <div>
+    <img src={left} alt={leftAlt} loading="lazy" />
+  </div>
+
+  <div>
+    <img src={right} alt={rightAlt} loading="lazy" />
+  </div>
+
+  {caption && <figcaption>{caption}</figcaption>}
+
+</figure>

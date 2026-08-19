@@ -1,0 +1,23 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  caption?: string;
+  rotate?: number;
+}
+
+const {
+  src,
+  alt = "",
+  caption = "",
+  rotate = 3,
+} = Astro.props;
+---
+
+<figure
+  class="fz-mini-polaroid"
+  style={`--rotate:${rotate}deg`}
+>
+  <img src={src} alt={alt} loading="lazy" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

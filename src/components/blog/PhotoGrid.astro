@@ -1,0 +1,36 @@
+---
+interface ImageItem {
+  src: string;
+  alt?: string;
+  caption?: string;
+}
+
+interface Props {
+  images: ImageItem[];
+}
+
+const { images } = Astro.props;
+
+const rotations = [-3, 2, -1, 3, -2, 1];
+---
+
+<div class="fanzine-photo-grid">
+  {images.map((image, index) => (
+    <figure
+      class="fanzine-photo-grid-item"
+      style={`--rotate: ${rotations[index % rotations.length]}deg`}
+    >
+      <img
+        src={image.src}
+        alt={image.alt ?? ""}
+        loading="lazy"
+      />
+
+      {image.caption && (
+        <figcaption>
+          {image.caption}
+        </figcaption>
+      )}
+    </figure>
+  ))}
+</div>

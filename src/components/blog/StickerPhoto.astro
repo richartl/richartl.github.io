@@ -1,0 +1,22 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  rotate?: number;
+  shape?: "square" | "circle";
+}
+
+const {
+  src,
+  alt = "",
+  rotate = -4,
+  shape = "square",
+} = Astro.props;
+---
+
+<div
+  class={`fz-sticker fz-sticker-${shape}`}
+  style={`--rotate:${rotate}deg`}
+>
+  <img src={src} alt={alt} loading="lazy" />
+</div>
